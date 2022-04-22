@@ -5853,25 +5853,26 @@
       "Microsoft.EntityFrameworkCore >= 3.1.24",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.24",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.24",
+      "Microsoft.OpenApi >= 1.2.3",
       "Swashbuckle.AspNetCore.Swagger >= 6.3.1",
       "Swashbuckle.AspNetCore.SwaggerGen >= 6.3.1",
       "Swashbuckle.AspNetCore.SwaggerUI >= 6.3.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
+    "C:\\Users\\Thao\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Flutter\\lttd\\ltddnc_backend\\ltddnc_backend\\ltddnc_backend.csproj",
+      "projectUniqueName": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj",
       "projectName": "ltddnc_backend",
-      "projectPath": "D:\\Flutter\\lttd\\ltddnc_backend\\ltddnc_backend\\ltddnc_backend.csproj",
-      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "D:\\Flutter\\lttd\\ltddnc_backend\\ltddnc_backend\\obj\\",
+      "projectPath": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj",
+      "packagesPath": "C:\\Users\\Thao\\.nuget\\packages\\",
+      "outputPath": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\BE_Flutter\\ltddnc_backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Thao\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5911,6 +5912,10 @@
             "target": "Package",
             "version": "[3.1.24, )"
           },
+          "Microsoft.OpenApi": {
+            "target": "Package",
+            "version": "[1.2.3, )"
+          },
           "Swashbuckle.AspNetCore.Swagger": {
             "target": "Package",
             "version": "[6.3.1, )"
@@ -5934,6 +5939,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.10, 3.1.10]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.1.24, 3.1.24]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[3.1.0, 3.1.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[3.1.0, 3.1.0]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -5942,7 +5965,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
