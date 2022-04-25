@@ -1,4 +1,5 @@
-﻿using ltddnc_backend.Entity;
+﻿using AutoMapper;
+using ltddnc_backend.Entity;
 using ltddnc_backend.Model;
 using ltddnc_backend.Repository;
 using ltddnc_backend.Services;
@@ -13,10 +14,12 @@ namespace ltddnc_backend.Controllers
     {
         private AccountsService _accountsService;
         private AccountsRepository _accountsRepository;
-        public AccountsController(AccountsService accountsService, DataDbContext dataDbContext)
+        private readonly IMapper mapper;
+        public AccountsController(AccountsService accountsService, DataDbContext dataDbContext, IMapper mapper)
         {
             this._accountsRepository = new AccountsRepository(dataDbContext);
             _accountsService = accountsService;
+            this.mapper = mapper;
         }
 
         [HttpPost("createaccount")]
@@ -60,22 +63,9 @@ namespace ltddnc_backend.Controllers
             if (account != null && account.State == 1)
             {
                 var user = _accountsRepository.GetUserByID(account.Id);
-                return Ok(user);
-            }
-            else
-            {
-                return BadRequest("Thông tin đăng nhập không hợp lệ.");
-            }
-        }
-
-        [HttpGet("getuser")]
-        public async Task<ActionResult> GetUser([FromBody] Account accountParams)
-        {
-            var account = await _accountsRepository.Login(accountParams.Email, _accountsService.MD5Hash(accountParams.Password));
-            if (account != null && account.State == 1)
-            {
-                var user = _accountsRepository.GetUserByID(account.Id);
-                return Ok(user);
+                UserUI userUI = mapper.Map<UserUI>(user);
+                userUI.Email = accountParams.Email;
+                return Ok(userUI);
             }
             else
             {
