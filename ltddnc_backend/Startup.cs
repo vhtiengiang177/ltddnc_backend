@@ -1,3 +1,4 @@
+using ltddnc_backend.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,6 +43,11 @@ namespace ltddnc_backend
                     Description = "Description for the API."
                 });
             });
+
+            services.AddSingleton(new AccountsService());
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
