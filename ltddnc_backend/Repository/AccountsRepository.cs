@@ -19,20 +19,21 @@ namespace ltddnc_backend.Repository
             return _dbContext.Accounts.FirstOrDefault(p => p.Id == accountID && p.State > 0);
         }
 
-        public Account CreateAccount(Account account, User user)
+        public bool CreateAccount(Account account, User user)
         {
             try
             {
                 var result = _dbContext.Accounts.Add(account);
                 _dbContext.SaveChanges();
 
+                user.IdAccount = result.Entity.Id;
                 _dbContext.Users.Add(user);
                 _dbContext.SaveChanges();
-                return result.Entity;
+                return true;
             }
             catch
             {
-                throw;
+                return false;
             }
         }
 
@@ -61,6 +62,11 @@ namespace ltddnc_backend.Repository
             if (_dbContext.Accounts.Where(a => a.Email == email).Count() > 0)
                 return true;
             return false;
+        }
+
+        public User GetUserByID(int idAccount)
+        {
+            return _dbContext.Users.FirstOrDefault(p => p.IdAccount == idAccount);
         }
 
         public bool Save()
