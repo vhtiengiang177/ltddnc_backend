@@ -13,6 +13,7 @@ namespace ltddnc_backend
         public DataDbContext(DbContextOptions<DataDbContext> options) : base(options)
         {
         }
+
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Category> Categories { get; set; }
