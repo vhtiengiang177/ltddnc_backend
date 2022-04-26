@@ -1,18 +1,13 @@
+using AutoMapper;
 using ltddnc_backend.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace ltddnc_backend
 {
@@ -43,6 +38,8 @@ namespace ltddnc_backend
                     Description = "Description for the API."
                 });
             });
+
+            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
             services.AddSingleton(new AccountsService());
             services.AddControllers().AddNewtonsoftJson(options =>
