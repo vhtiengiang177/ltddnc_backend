@@ -28,6 +28,27 @@ namespace ltddnc_backend.Repository
             return lCategory.AsQueryable();
         }
 
+        public Category Create(Category category)
+        {
+            var result = _dbContext.Categories.Add(category);
+
+            return result.Entity;
+        }
+
+        public void Update(Category category)
+        {
+            _dbContext.Attach(category);
+            _dbContext.Entry(category).State = EntityState.Modified;
+        }
+
+        public void Delete(int id)
+        {
+            var category = _dbContext.Categories.Where(a => a.Id == id).FirstOrDefault();
+            category.State = 0;
+            _dbContext.Attach(category);
+            _dbContext.Entry(category).State = EntityState.Modified;
+        }
+
         public bool Save()
         {
             try
