@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ltddnc_backend;
 
 namespace ltddnc_backend.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220429092137_DatabaseV2")]
+    partial class DatabaseV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,7 +163,7 @@ namespace ltddnc_backend.Migrations
                             Id = 5,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
                             Name = "Kem",
-                            State = 1
+                            State = 0
                         });
                 });
 
@@ -263,7 +265,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 1,
                             Description = "Gà sốt với đậu",
-                            IdCategory = 2,
+                            IdCategory = 1,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/ga-sot-dau.jpg?alt=media&token=168bac33-bfc6-445b-86cb-4b8b34410808",
                             Name = "Gà sốt đậu",
                             State = 1,
@@ -274,7 +276,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 2,
                             Description = "Gà sốt H&S",
-                            IdCategory = 2,
+                            IdCategory = 1,
                             Name = "Gà sốt H&S",
                             State = 1,
                             Stock = 100,
@@ -284,7 +286,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 3,
                             Description = "Burger Mozzarella",
-                            IdCategory = 1,
+                            IdCategory = 2,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-mozzarella.jpg?alt=media&token=3347cfdb-aea4-4008-8ec2-ddaad4f58000",
                             Name = "Burger Mozzarella",
                             State = 1,
@@ -295,7 +297,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 4,
                             Description = "Burger Double Double",
-                            IdCategory = 1,
+                            IdCategory = 2,
                             Name = "Burger Double Double",
                             State = 1,
                             Stock = 100,
@@ -349,7 +351,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 9,
                             Description = "Burger Bulgogi",
-                            IdCategory = 1,
+                            IdCategory = 2,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-bulgogi.jpg?alt=media&token=e387c83a-c0c8-454a-91c3-f374a32e9411",
                             Name = "Burger Bulgogi",
                             State = 1,
@@ -360,7 +362,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 10,
                             Description = "Burger Gà Thượng Hạng",
-                            IdCategory = 1,
+                            IdCategory = 2,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-ga.jpg?alt=media&token=377b21ad-58af-42b6-82c6-5951930f1a10",
                             Name = "Burger Gà Thượng Hạng",
                             State = 1,
@@ -371,7 +373,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 11,
                             Description = "Burger nhân tôm",
-                            IdCategory = 1,
+                            IdCategory = 2,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-tom-cua.jpg?alt=media&token=abffb82e-2d47-420b-9d64-fa77325ec7db",
                             Name = "Burger Tôm",
                             State = 1,
