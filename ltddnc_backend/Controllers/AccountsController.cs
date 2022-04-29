@@ -25,13 +25,13 @@ namespace ltddnc_backend.Controllers
         [HttpPost("createaccount")]
         public IActionResult CreateAccount([FromBody] UserAccountParams userAccountParams)
         {
-            if (_accountsRepository.IsExistEmail(userAccountParams.Email))
+            if (_accountsRepository.IsExistEmail(userAccountParams.Email) > 0)
             {
                 return BadRequest("Email đã tồn tại.");
             }
-            else if (_accountsRepository.IsExistPhone(userAccountParams.Phone))
+            else if (_accountsRepository.IsExistPhone(userAccountParams.Phone) > 0)
             {
-                return BadRequest("Số điện thoại đã được đăng ký.");
+                return BadRequest("Số điện thoại đã tồn tại.");
             }
             else
             {
@@ -71,6 +71,60 @@ namespace ltddnc_backend.Controllers
             {
                 return BadRequest("Thông tin đăng nhập không hợp lệ.");
             }
+        }
+
+        [HttpGet("getuser/{idAccount}")]
+        public ActionResult GetUser(int idAccount)
+        {
+            var account = _accountsRepository.GetAccountByID(idAccount);
+            if (account != null && account.State == 1)
+            {
+                var user = _accountsRepository.GetUserByID(account.Id);
+                UserUI userUI = mapper.Map<UserUI>(user);
+                userUI.Email = account.Email;
+                return Ok(userUI);
+            }
+            else
+            {
+                return BadRequest("Thông tin đăng nhập không hợp lệ.");
+            }
+        }
+
+        [HttpPatch("updateaccount")]
+        public IActionResult UpdateAccount([FromBody] UserUI userAccountParams)
+        {
+            if (_accountsRepository.IsExistEmail(userAccountParams.Email) > 1)
+            {
+                return BadRequest("Email đã tồn tại.");
+            }
+            else if (_accountsRepository.IsExistPhone(userAccountParams.Phone) > 1)
+            {
+                return BadRequest("Số điện thoại đã tồn tại.");
+            }
+            else
+            {
+                var account = _accountsRepository.GetAccountByID(userAccountParams.IdAccount);
+                if (account != null)
+                {
+                    if (account.Email != userAccountParams.Email)
+                    {
+                        account.Email = userAccountParams.Email;
+                        _accountsRepository.UpdateAccount(account);
+                    }
+                }
+
+                var user = _accountsRepository.GetUserByID(userAccountParams.IdAccount);
+                user.Name = userAccountParams.Name;
+                user.Phone = userAccountParams.Phone;
+                user.Address = userAccountParams.Address;
+                user.Image = userAccountParams.Image;
+                _accountsRepository.UpdateUser(user);
+                if (!_accountsRepository.Save())
+                {
+                    return BadRequest("Cập nhật thất bại.");
+                }
+            }
+            return Ok("Cập nhật thông tin thành công.");
         }
     }
 }
