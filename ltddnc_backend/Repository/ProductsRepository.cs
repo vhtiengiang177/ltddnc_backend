@@ -58,6 +58,14 @@ namespace ltddnc_backend.Repository
             return lProductItem.AsQueryable();
         }
 
+        public async Task<IQueryable<Product>> GetProductsByCategoryID(int idCategories)
+        {
+            var lProduct = await _dbContext.Products.Where(p =>p.State > 0 && p.IdCategory == idCategories).ToListAsync();
+
+            return lProduct.AsQueryable();
+
+        }
+
         public IQueryable<Product> GetTopProductBestSellers()
         {
             var lProduct = _dbContext.Products.Where(p => p.State > 0).OrderByDescending(i => i.Stock).ToList();

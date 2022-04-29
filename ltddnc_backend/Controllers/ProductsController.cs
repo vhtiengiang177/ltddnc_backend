@@ -51,6 +51,23 @@ namespace ltddnc_backend.Controllers
             }
         }
 
+        [HttpGet("getproductbycategoryid/{id}", Name = "getproductbycategoryid")]
+        public async Task<IActionResult> GetProductsByCategoriesID(int id)
+
+        {
+            IQueryable<Product> lProducts;
+            lProducts = await _productsRepository.GetProductsByCategoryID(id);
+
+            if (lProducts == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(lProducts);
+            }
+        }
+
         [HttpPost("CreateProduct")]
         public IActionResult CreateProduct(Product product)
         {
