@@ -15,16 +15,17 @@ namespace ltddnc_backend.Repository
         {
             _dbContext = dataDbContext;
         }
-        public async Task<IQueryable<Cart>> GetAllItemsInCart(int customerID)
+        public async Task<IQueryable<Cart>> GetAllItemsInCart(int idUser)
         {
-            var lProductCart = await _dbContext.Carts.Where(p => p.IdUser == customerID).ToListAsync();
+            var lProductCart = await _dbContext.Carts.Where(p => p.IdUser == idUser).ToListAsync();
 
             return lProductCart.AsQueryable();
         }
 
-        public Cart GetItemInCart(int customerID, int productID, int sizeID, int colorID)
+        public void UpdateCart(Cart cart)
         {
-            return _dbContext.Carts.FirstOrDefault(p => p.IdUser == customerID && p.IdProduct == productID);
+            _dbContext.Attach(cart);
+            _dbContext.Entry(cart).State = EntityState.Modified;
         }
 
         public bool Save()

@@ -138,7 +138,11 @@ namespace ltddnc_backend
               new Product() { Id = 11, Name = "Burger Tôm", Description = "Burger nhân tôm", Stock = 100, State = 1, IdCategory = 1, UnitPrice = 60000, Image= "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-tom-cua.jpg?alt=media&token=abffb82e-2d47-420b-9d64-fa77325ec7db" });
 
             modelBuilder.Entity<Cart>().HasData(
-               new Cart() { IdUser = 3, IdProduct = 1, Quantity = 20 });
+               new Cart() { IdUser = 3, IdProduct = 1, Quantity = 5 },
+               new Cart() { IdUser = 3, IdProduct = 3, Quantity = 3 },
+               new Cart() { IdUser = 3, IdProduct = 11, Quantity = 2 },
+               new Cart() { IdUser = 3, IdProduct = 2, Quantity = 2 },
+               new Cart() { IdUser = 3, IdProduct = 5, Quantity = 2 });
 
         }
     }
