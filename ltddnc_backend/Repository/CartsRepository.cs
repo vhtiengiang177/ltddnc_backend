@@ -22,11 +22,39 @@ namespace ltddnc_backend.Repository
             return lProductCart.AsQueryable();
         }
 
+
+
+        public Cart AddItemToCart(Cart cart)
+        {
+            try
+            {
+                var result = _dbContext.Carts.Add(cart);
+                _dbContext.SaveChanges();
+                return result.Entity;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public void UpdateCart(Cart cart)
         {
             _dbContext.Attach(cart);
             _dbContext.Entry(cart).State = EntityState.Modified;
         }
+
+        public void DeleteItemInCart(Cart cart)
+        {
+            if (_dbContext.Entry(cart).State == EntityState.Detached)
+            {
+                _dbContext.Attach(cart);
+            }
+            _dbContext.Remove(cart);
+        }
+
+
+
 
         public bool Save()
         {

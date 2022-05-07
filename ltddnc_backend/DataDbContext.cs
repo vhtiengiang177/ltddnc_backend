@@ -22,6 +22,7 @@ namespace ltddnc_backend
         public DbSet<Product> Products { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -82,12 +83,19 @@ namespace ltddnc_backend
 
             });
 
-
             modelBuilder.Entity<Role>(entity => {
                 entity.HasKey(e => e.Id);
                 entity.HasMany<Account>(e => e.Accounts)
                         .WithOne(account => account.Role)
                         .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<Favorite>(entity => {
+                entity.HasKey(e => new { e.IdUser, e.IdProduct });
+
+                entity.HasOne<User>(e => e.User)
+                    .WithMany(f => f.Favorites)
+                    .HasForeignKey(e => e.IdUser);
             });
 
             SeedData(modelBuilder);
@@ -144,6 +152,12 @@ namespace ltddnc_backend
                new Cart() { IdUser = 3, IdProduct = 2, Quantity = 2 },
                new Cart() { IdUser = 3, IdProduct = 5, Quantity = 2 });
 
+            modelBuilder.Entity<Favorite>().HasData(
+               new Favorite() { IdUser = 3, IdProduct = 1 },
+               new Favorite() { IdUser = 3, IdProduct = 3 },
+               new Favorite() { IdUser = 4, IdProduct = 1 },
+               new Favorite() { IdUser = 4, IdProduct = 5 },
+               new Favorite() { IdUser = 4, IdProduct = 6 });
         }
     }
 }

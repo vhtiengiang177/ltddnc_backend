@@ -11,6 +11,7 @@ namespace ltddnc_backend.Entity
         public string? Address { get; set; }
         public virtual Account Account { get; set; }
         public virtual ICollection<Cart> Carts { get; set; }
+        public virtual ICollection<Favorite> Favorites { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }
