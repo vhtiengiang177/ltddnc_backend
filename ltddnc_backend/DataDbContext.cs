@@ -120,10 +120,10 @@ namespace ltddnc_backend
                 new Account() { Id = 4, Email = "Cust2@gmail.com", Password = "4bb0a94f21769c3b9d68cd8256a87104", State = 1, IdRole = 1 });
 
             modelBuilder.Entity<User>().HasData(
-                new User() { IdAccount = 1, Name = "Giang", Phone = "0328807778", Address = "282  Nguyễn Duy Trinh, phường Bình Trưng Tây, Quận 2, TP. HCM" },
-                new User() { IdAccount = 2, Name = "Thao", Phone = "0328807778", Address = "Số 1 Võ Văn Ngân, TP Thủ Đức, TP. HCM" },
-                new User() { IdAccount = 3, Name = "Bao", Phone = "0328807778", Address = "20 Đặng Văn Bi, phường Trường Thọ, TP Thủ Đức" },
-                new User() { IdAccount = 4, Name = "Yen", Phone = "0328807778", Address = "23/2 Đường số 8, TP Thủ Đức" });
+                new User() { IdAccount = 1, Name = "Giang", Phone = "0328801234", Address = "282  Nguyễn Duy Trinh, phường Bình Trưng Tây, Quận 2, TP. HCM" },
+                new User() { IdAccount = 2, Name = "Thao", Phone = "0328807278", Address = "Số 1 Võ Văn Ngân, TP Thủ Đức, TP. HCM" },
+                new User() { IdAccount = 3, Name = "Bao", Phone = "0328807986", Address = "20 Đặng Văn Bi, phường Trường Thọ, TP Thủ Đức" },
+                new User() { IdAccount = 4, Name = "Yen", Phone = "0328807938", Address = "23/2 Đường số 8, TP Thủ Đức" });
 
             modelBuilder.Entity<Category>().HasData(
                 new Category() { Id = 1, Name = "Burger", State = 1, Image= "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger.png?alt=media&token=ca9698cb-e20f-4b4a-8403-9e5605a506b7" },

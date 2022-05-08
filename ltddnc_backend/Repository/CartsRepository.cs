@@ -22,8 +22,6 @@ namespace ltddnc_backend.Repository
             return lProductCart.AsQueryable();
         }
 
-
-
         public Cart AddItemToCart(Cart cart)
         {
             try
@@ -53,8 +51,11 @@ namespace ltddnc_backend.Repository
             _dbContext.Remove(cart);
         }
 
-
-
+        public Cart GetItemInCart(int idUser, int idProduct)
+        {
+            Cart cart = _dbContext.Carts.Where(c => c.IdUser == idUser && c.IdProduct == idProduct).FirstOrDefault();
+            return cart;
+        }
 
         public bool Save()
         {

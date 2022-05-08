@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace ltddnc_backend.Controllers
 {
@@ -63,6 +62,15 @@ namespace ltddnc_backend.Controllers
                         IdProduct = cartUI.IdProduct,
                         Quantity = cartUI.Quantity
                     };
+                    var oldItem = _cartsRepository.GetItemInCart(cart.IdUser, cart.IdProduct);
+                    if (oldItem != null)
+                    {
+                        _cartsRepository.UpdateCart(cart);
+                    }
+                    else
+                    {
+                        _cartsRepository.AddItemToCart(cart);
+                    }
                     _cartsRepository.UpdateCart(cart);
                 }
                 if (!_cartsRepository.Save())
@@ -76,5 +84,34 @@ namespace ltddnc_backend.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPost("AddItem")]
+        public IActionResult AddItem([FromBody] Cart cart)
+        {
+            try
+            {
+                var oldItem = _cartsRepository.GetItemInCart(cart.IdUser, cart.IdProduct);
+                if (oldItem != null)
+                {
+                    oldItem.Quantity += cart.Quantity;
+                    _cartsRepository.UpdateCart(oldItem);
+                }
+                else
+                {
+                    _cartsRepository.AddItemToCart(cart);
+                }
+
+                if (!_cartsRepository.Save())
+                {
+                    return BadRequest("Thêm thất bại");
+                }
+                return Ok("Thêm thành công!");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }
