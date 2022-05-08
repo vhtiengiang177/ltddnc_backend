@@ -52,21 +52,18 @@ namespace ltddnc_backend.Controllers
             }
         }
 
-        [HttpPost("AddItemToFavorite")]
-        public IActionResult AddItemToFavorite(Favorite favorite)
+        [HttpPost("AddItemToFavorite/{idUser}&&{idProduct}")]
+        public IActionResult AddItemToFavorite(int idUser, int idProduct)
         {
             if (ModelState.IsValid)
             {
-                var userId = User.FindFirst("id").Value;
-                var typeAccount = User.FindFirst("idTypeAccount").Value;
-                if (userId == null) return BadRequest("Register or login to add to Favorite");
-                if (int.Parse(typeAccount) != 4) return BadRequest("Staff cannot use this function");
-
-                favorite.IdUser = int.Parse(userId);
-
-                var item = _favoritesRepository.GetItemInFavorite(favorite.IdUser, favorite.IdProduct);
+                var item = _favoritesRepository.GetItemInFavorite(idUser, idProduct);
                 if (item == null)
                 {
+                    Favorite favorite = new Favorite();
+                    favorite.IdProduct = idProduct;
+                    favorite.IdUser = idUser;
+                    
                     _favoritesRepository.AddItemToFavorites(favorite);
                     if (_favoritesRepository.Save())
                         return Ok(item);
@@ -78,26 +75,21 @@ namespace ltddnc_backend.Controllers
         }
 
 
-        [HttpPost]
-        public IActionResult DeleteItemsInFavorite(Favorite[] lItems)
+        [HttpDelete("DeleteItemInFavorite/{idUser}&&{idProduct}")]
+        public IActionResult DeleteItemsInFavorite(int idUser,int idProduct)
         {
             try
             {
-                var userId = User.FindFirst("id").Value;
-                if (userId == null) return BadRequest();
+                var itemObj = _favoritesRepository.GetItemInFavorite(idUser, idProduct);
+                if (itemObj == null)
+                    return NotFound();
 
-                foreach (var item in lItems)
+                _favoritesRepository.DeleteItemInFavorite(itemObj);
+                if (!_favoritesRepository.Save())
                 {
-                    var itemObj = _favoritesRepository.GetItemInFavorite(int.Parse(userId), item.IdProduct);
-                    if (itemObj == null)
-                        return NotFound();
-
-                    _favoritesRepository.DeleteItemInFavorite(itemObj);
-                    if (!_favoritesRepository.Save())
-                    {
-                        return BadRequest();
-                    }
-                }
+                    return BadRequest();
+                 }
+                
                 return Ok();
             }
             catch
