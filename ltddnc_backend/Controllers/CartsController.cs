@@ -71,7 +71,6 @@ namespace ltddnc_backend.Controllers
                     {
                         _cartsRepository.AddItemToCart(cart);
                     }
-                    _cartsRepository.UpdateCart(cart);
                 }
                 if (!_cartsRepository.Save())
                 {
@@ -106,6 +105,33 @@ namespace ltddnc_backend.Controllers
                     return BadRequest("Thêm thất bại");
                 }
                 return Ok("Thêm thành công!");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("DeleteItemsInCart")]
+        public IActionResult DeleteItemsInCart([FromBody] List<CartUI> listCartUI)
+        {
+            try
+            {
+                foreach (CartUI cartUI in listCartUI)
+                {
+                    Cart cart = new Cart()
+                    {
+                        IdUser = cartUI.IdUser,
+                        IdProduct = cartUI.IdProduct,
+                        Quantity = cartUI.Quantity
+                    };
+                    _cartsRepository.DeleteItemInCart(cart);
+                }
+                if (!_cartsRepository.Save())
+                {
+                    return BadRequest("Xoá thất bại");
+                }
+                return Ok("Xoá thành công");
             }
             catch
             {
