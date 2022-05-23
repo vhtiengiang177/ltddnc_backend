@@ -22,6 +22,7 @@ namespace ltddnc_backend
         public DbSet<Product> Products { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -82,6 +83,10 @@ namespace ltddnc_backend
 
             });
 
+            modelBuilder.Entity<Review>(entity => {
+                entity.HasKey(e => new { e.IdProduct, e.IdUser, e.Date });
+            });
+
 
             modelBuilder.Entity<Role>(entity => {
                 entity.HasKey(e => e.Id);
@@ -136,6 +141,11 @@ namespace ltddnc_backend
               new Product() { Id = 9, Name = "Burger Bulgogi", Description = "Burger Bulgogi", Stock = 100, State = 1, IdCategory = 2, UnitPrice = 45000 },
               new Product() { Id = 10, Name = "Burger Gà Thượng Hạng", Description = "Burger Gà Thượng Hạng", Stock = 100, State = 1, IdCategory = 2, UnitPrice = 60000 });
 
+            modelBuilder.Entity<Review>().HasData(
+               new Review() { IdProduct = 1, IdUser = 3, Name = "Bao", Date = DateTime.Now, Comment = "Good", Rating = 5 },
+               new Review() { IdProduct = 1, IdUser = 3, Name = "Bao", Date = DateTime.Now, Comment = "Bad", Rating = 1 },
+               new Review() { IdProduct = 1, IdUser = 3, Name = "Bao", Date = DateTime.Now, Comment = "Very Good", Rating = 5 });
+               
             modelBuilder.Entity<Cart>().HasData(
                new Cart() { IdUser = 3, IdProduct = 1, Quantity = 20 });
 

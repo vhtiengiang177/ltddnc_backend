@@ -6171,11 +6171,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj",
+      "projectUniqueName": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\CuoiKy\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj",
       "projectName": "ltddnc_backend",
-      "projectPath": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj",
+      "projectPath": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\CuoiKy\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj",
       "packagesPath": "C:\\Users\\Thao\\.nuget\\packages\\",
-      "outputPath": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\BE_Flutter\\ltddnc_backend\\obj\\",
+      "outputPath": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\CuoiKy\\BE_Flutter\\ltddnc_backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Thao\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6268,13 +6268,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\BE_Flutter\\ltddnc_backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

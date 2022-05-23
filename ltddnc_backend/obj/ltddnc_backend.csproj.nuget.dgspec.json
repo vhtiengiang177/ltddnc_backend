@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj": {}
+    "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\CuoiKy\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj": {}
   },
   "projects": {
-    "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj": {
+    "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\CuoiKy\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj",
+        "projectUniqueName": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\CuoiKy\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj",
         "projectName": "ltddnc_backend",
-        "projectPath": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj",
+        "projectPath": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\CuoiKy\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj",
         "packagesPath": "C:\\Users\\Thao\\.nuget\\packages\\",
-        "outputPath": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\BE_Flutter\\ltddnc_backend\\obj\\",
+        "outputPath": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\CuoiKy\\BE_Flutter\\ltddnc_backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Thao\\AppData\\Roaming\\NuGet\\NuGet.Config",
