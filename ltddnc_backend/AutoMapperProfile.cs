@@ -10,6 +10,7 @@ namespace ltddnc_backend
         {
             CreateMap<User, UserUI>();
             CreateMap<Cart, CartUI>();
+            CreateMap<Order, OrderUI>();
         }
     }
 }
