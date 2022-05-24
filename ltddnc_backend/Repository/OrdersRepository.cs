@@ -30,11 +30,39 @@ namespace ltddnc_backend.Repository
             return lOrder.AsQueryable();
         }
 
-        public async Task<IQueryable<OrderDetail>> GetAllOrderDetailByOrder(int order)
+        public async Task<IQueryable<OrderDetail>> GetAllOrderDetailByOrder(int idOrder)
         {
-            var lOrder = await _dbContext.OrderDetails.Where(p => p.IdOrder == order).ToListAsync();
+            var lOrder = await _dbContext.OrderDetails.Where(p => p.IdOrder == idOrder).ToListAsync();
 
             return lOrder.AsQueryable();
+        }
+
+        public async Task<IQueryable<Order>> GetOrderByState(int idUser, int state)
+        {
+            var lOrder = await _dbContext.Orders.Where(p => p.IdUser == idUser && p.State == state).ToListAsync();
+
+            return lOrder.AsQueryable();
+        }
+
+        public OrderDetail GetFirstOrderDetailByOrder(int idOrder)
+        {
+            var orderDetail =  _dbContext.OrderDetails.Where(p => p.IdOrder == idOrder).FirstOrDefault();
+
+            return orderDetail;
+        }
+
+        public Order CreateOrder(Order order)
+        {
+            var result = _dbContext.Orders.Add(order);
+
+            return result.Entity;
+        }
+
+        public OrderDetail CreateOrderDetail(OrderDetail orderDetail)
+        {
+            var result = _dbContext.OrderDetails.Add(orderDetail);
+
+            return result.Entity;
         }
 
         public bool Save()

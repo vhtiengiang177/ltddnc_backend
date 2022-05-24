@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using ltddnc_backend.Entity;
 
-namespace ltddnc_backend.Entity
+namespace ltddnc_backend.Model
 {
-    public class Order
+    public class OrderUI
     {
         public int Id { get; set; }
         public int TotalQuantity { get; set; }
@@ -12,8 +12,6 @@ namespace ltddnc_backend.Entity
         public string Phone { get; set; }
         public string Address { get; set; }
         public int IdUser { get; set; }
-        public User User { get; set; }
-
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public OrderDetail FirstOrderDetail { get; set; }
     }
 }
