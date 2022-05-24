@@ -9,6 +9,8 @@ namespace ltddnc_backend
         public AutoMapperProfile()
         {
             CreateMap<User, UserUI>();
+            CreateMap<Cart, CartUI>();
+            CreateMap<Order, OrderUI>();
         }
     }
 }

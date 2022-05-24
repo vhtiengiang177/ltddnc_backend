@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ltddnc_backend;
 
 namespace ltddnc_backend.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220429092948_DatabaseV3")]
+    partial class DatabaseV3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,6 +99,14 @@ namespace ltddnc_backend.Migrations
                     b.HasKey("IdUser", "IdProduct");
 
                     b.ToTable("Carts");
+
+                    b.HasData(
+                        new
+                        {
+                            IdUser = 3,
+                            IdProduct = 1,
+                            Quantity = 20
+                        });
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.Category", b =>
@@ -157,19 +167,6 @@ namespace ltddnc_backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ltddnc_backend.Entity.Favorite", b =>
-                {
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProduct")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdUser", "IdProduct");
-
-                    b.ToTable("Favorites");
-                });
-
             modelBuilder.Entity("ltddnc_backend.Entity.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -177,20 +174,17 @@ namespace ltddnc_backend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("FeeDelivery")
+                        .HasColumnType("float");
 
                     b.Property<int>("IdUser")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("State")
                         .HasColumnType("int");
+
+                    b.Property<double>("TotalAmount")
+                        .HasColumnType("float");
 
                     b.Property<double>("TotalProductPrice")
                         .HasColumnType("float");
@@ -388,73 +382,6 @@ namespace ltddnc_backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
-                {
-                    b.Property<int>("IdProduct")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserIdAccount")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdProduct", "IdUser", "Date");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserIdAccount");
-
-                    b.ToTable("Reviews");
-
-                    b.HasData(
-                        new
-                        {
-                            IdProduct = 1,
-                            IdUser = 3,
-                            Date = new DateTime(2022, 5, 23, 23, 23, 33, 519, DateTimeKind.Local).AddTicks(1114),
-                            Comment = "Good",
-                            Name = "Bao",
-                            Rating = 5
-                        },
-                        new
-                        {
-                            IdProduct = 1,
-                            IdUser = 3,
-                            Date = new DateTime(2022, 5, 23, 23, 23, 33, 520, DateTimeKind.Local).AddTicks(2309),
-                            Comment = "Bad",
-                            Name = "Bao",
-                            Rating = 1
-                        },
-                        new
-                        {
-                            IdProduct = 1,
-                            IdUser = 3,
-                            Date = new DateTime(2022, 5, 23, 23, 23, 33, 520, DateTimeKind.Local).AddTicks(2379),
-                            Comment = "Very Good",
-                            Name = "Bao",
-                            Rating = 5
-                        });
-                });
-
             modelBuilder.Entity("ltddnc_backend.Entity.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -514,28 +441,28 @@ namespace ltddnc_backend.Migrations
                             IdAccount = 1,
                             Address = "282  Nguyễn Duy Trinh, phường Bình Trưng Tây, Quận 2, TP. HCM",
                             Name = "Giang",
-                            Phone = "0328801234"
+                            Phone = "0328807778"
                         },
                         new
                         {
                             IdAccount = 2,
                             Address = "Số 1 Võ Văn Ngân, TP Thủ Đức, TP. HCM",
                             Name = "Thao",
-                            Phone = "0328807278"
+                            Phone = "0328807778"
                         },
                         new
                         {
                             IdAccount = 3,
                             Address = "20 Đặng Văn Bi, phường Trường Thọ, TP Thủ Đức",
                             Name = "Bao",
-                            Phone = "0328807986"
+                            Phone = "0328807778"
                         },
                         new
                         {
                             IdAccount = 4,
                             Address = "23/2 Đường số 8, TP Thủ Đức",
                             Name = "Yen",
-                            Phone = "0328807938"
+                            Phone = "0328807778"
                         });
                 });
 
@@ -552,15 +479,6 @@ namespace ltddnc_backend.Migrations
                 {
                     b.HasOne("ltddnc_backend.Entity.User", "User")
                         .WithMany("Carts")
-                        .HasForeignKey("IdUser")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ltddnc_backend.Entity.Favorite", b =>
-                {
-                    b.HasOne("ltddnc_backend.Entity.User", "User")
-                        .WithMany("Favorites")
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -592,17 +510,6 @@ namespace ltddnc_backend.Migrations
                         .WithMany("Products")
                         .HasForeignKey("IdCategory")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
-                {
-                    b.HasOne("ltddnc_backend.Entity.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.HasOne("ltddnc_backend.Entity.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserIdAccount");
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.User", b =>

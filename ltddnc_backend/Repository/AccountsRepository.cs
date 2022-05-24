@@ -37,11 +37,9 @@ namespace ltddnc_backend.Repository
             }
         }
 
-        public bool IsExistPhone(string phone)
+        public int IsExistPhone(string phone)
         {
-            if (_dbContext.Users.Where(a => a.Phone == phone).Count() > 0)
-                return true;
-            return false;
+            return _dbContext.Users.Where(a => a.Phone == phone).Count();
         }
 
         public void UpdateAccount(Account account)
@@ -56,17 +54,21 @@ namespace ltddnc_backend.Repository
             return account;
         }
 
-        public bool IsExistEmail(string email)
+        public int IsExistEmail(string email)
         {
             // Kiểm tra tồn tại email cho việc tạo tài khoản mới nên không xét State
-            if (_dbContext.Accounts.Where(a => a.Email == email).Count() > 0)
-                return true;
-            return false;
+            return _dbContext.Accounts.Where(a => a.Email == email).Count();
         }
 
         public User GetUserByID(int idAccount)
         {
             return _dbContext.Users.FirstOrDefault(p => p.IdAccount == idAccount);
+        }
+
+        public void UpdateUser(User user)
+        {
+            _dbContext.Attach(user);
+            _dbContext.Entry(user).State = EntityState.Modified;
         }
 
         public bool Save()
