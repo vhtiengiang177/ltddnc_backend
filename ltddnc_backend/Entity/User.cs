@@ -13,5 +13,6 @@ namespace ltddnc_backend.Entity
         public virtual ICollection<Cart> Carts { get; set; }
         public virtual ICollection<Favorite> Favorites { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

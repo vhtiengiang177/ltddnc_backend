@@ -85,7 +85,15 @@ namespace ltddnc_backend
             });
 
             modelBuilder.Entity<Review>(entity => {
-                entity.HasKey(e => new { e.IdProduct, e.IdUser, e.Date });
+                entity.HasKey(e => new { e.Id, e.IdProduct, e.IdUser });
+
+                entity.HasOne<Product>(e => e.Product)
+                    .WithMany(f => f.Reviews)
+                    .HasForeignKey(e => e.IdProduct);
+
+                entity.HasOne<User>(e => e.User)
+                    .WithMany(f => f.Reviews)
+                    .HasForeignKey(e => e.IdUser);
             });
 
 
@@ -157,10 +165,11 @@ namespace ltddnc_backend
             //   new Cart() { IdUser = 3, IdProduct = 11, Quantity = 2 },
             //   new Cart() { IdUser = 3, IdProduct = 2, Quantity = 2 },
             //   new Cart() { IdUser = 3, IdProduct = 5, Quantity = 2 });
+
             modelBuilder.Entity<Review>().HasData(
-               new Review() { IdProduct = 1, IdUser = 3, Name = "Bao", Date = DateTime.Now, Comment = "Good", Rating = 5 },
-               new Review() { IdProduct = 1, IdUser = 3, Name = "Bao", Date = DateTime.Now, Comment = "Bad", Rating = 1 },
-               new Review() { IdProduct = 1, IdUser = 3, Name = "Bao", Date = DateTime.Now, Comment = "Very Good", Rating = 5 });
+               new Review() { Id = 1, IdProduct = 1, IdUser = 3, Name = "Bao", Rating = 5, Date = createdDateNew, Comment = "Good",  Image  = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94" },
+               new Review() { Id = 2, IdProduct = 1, IdUser = 3, Name = "Bao", Rating = 1, Date = createdDateNew, Comment = "Bad",  Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94" },
+               new Review() { Id = 3, IdProduct = 2, IdUser = 3, Name = "Bao", Rating = 5, Date = createdDateNew, Comment = "Very Good", Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94" });
                
             modelBuilder.Entity<Cart>().HasData(
                new Cart() { IdUser = 3, IdProduct = 1, Quantity = 20 });

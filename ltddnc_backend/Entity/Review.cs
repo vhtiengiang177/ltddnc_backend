@@ -4,6 +4,7 @@ namespace ltddnc_backend.Entity
 {
     public class Review
     {
+        public int Id { get; set;}
         public int IdProduct { get; set; }
         public int IdUser { get; set; }
         public string Name { get; set; }
@@ -12,7 +13,7 @@ namespace ltddnc_backend.Entity
         public DateTime Date { get; set; }
         public string? Image { get; set; }
 
-        public virtual User User { get; set; }
-        public virtual Product Product { get; set; }
+        public  User User { get; set; }
+        public  Product Product { get; set; }
     }
 }
