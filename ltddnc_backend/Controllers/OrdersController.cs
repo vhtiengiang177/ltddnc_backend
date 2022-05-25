@@ -16,11 +16,13 @@ namespace ltddnc_backend.Controllers
     public class OrdersController : ControllerBase
     {
         private OrdersRepository _ordersRepository;
+        private ProductsRepository _productsRepository;
         private readonly IMapper mapper;
 
         public OrdersController(DataDbContext dbContext, IMapper mapper)
         {
             this._ordersRepository = new OrdersRepository(dbContext);
+            this._productsRepository = new ProductsRepository(dbContext);
             this.mapper = mapper;
         }
 
@@ -37,6 +39,7 @@ namespace ltddnc_backend.Controllers
                     TotalQuantity = orderParams.Order.TotalQuantity,
                     TotalProductPrice = orderParams.Order.TotalProductPrice,
                     IdUser = orderParams.Order.IdUser,
+                    CreateDate = orderParams.Order.CreateDate,
                 };
 
                 var result = _ordersRepository.CreateOrder(order);
@@ -76,10 +79,40 @@ namespace ltddnc_backend.Controllers
 
                 foreach (var order in lOrdersUI)
                 {
-                    order.FirstOrderDetail = _ordersRepository.GetFirstOrderDetailByOrder(order.Id);
+                    OrderDetail orderDetail = _ordersRepository.GetFirstOrderDetailByOrder(order.Id);
+                    Product product = _productsRepository.GetProductByID(orderDetail.IdProduct);
+                    OrderDetailUI orderDetailUI = mapper.Map<OrderDetailUI>(orderDetail);
+                    orderDetailUI.NameProduct = product.Name;
+                    orderDetailUI.ImageProduct = product.Image;
+                    order.FirstOrderDetail = orderDetailUI;
                 }
 
                 return Ok(lOrdersUI);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("GetOrderDetailByIdOrder/{idOrder}")]
+        public async Task<IActionResult> GetOrderDetailByIdOrder(int idOrder)
+        {
+            try
+            {
+                IQueryable<OrderDetail> lOrderDetails;
+
+                lOrderDetails = await _ordersRepository.GetAllOrderDetailByOrder(idOrder);
+                List<OrderDetailUI> lOrderDetailUI = mapper.Map<List<OrderDetailUI>>(lOrderDetails);
+                
+                foreach (var orderDetail in lOrderDetailUI)
+                {
+                    Product product = _productsRepository.GetProductByID(orderDetail.IdProduct);
+                    orderDetail.NameProduct = product.Name;
+                    orderDetail.ImageProduct = product.Image;
+                }
+
+                return Ok(lOrderDetailUI);
             }
             catch
             {

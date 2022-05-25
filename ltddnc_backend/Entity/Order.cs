@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ltddnc_backend.Entity
 {
@@ -11,6 +12,7 @@ namespace ltddnc_backend.Entity
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
+        public DateTime CreateDate { get; set; }
         public int IdUser { get; set; }
         public User User { get; set; }
 

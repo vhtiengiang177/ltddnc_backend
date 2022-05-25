@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ltddnc_backend;
 
 namespace ltddnc_backend.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220525124927_DatabaseV6")]
+    partial class DatabaseV6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -391,73 +393,6 @@ namespace ltddnc_backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
-                {
-                    b.Property<int>("IdProduct")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserIdAccount")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdProduct", "IdUser", "Date");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserIdAccount");
-
-                    b.ToTable("Reviews");
-
-                    b.HasData(
-                        new
-                        {
-                            IdProduct = 1,
-                            IdUser = 3,
-                            Date = new DateTime(2022, 5, 23, 23, 23, 33, 519, DateTimeKind.Local).AddTicks(1114),
-                            Comment = "Good",
-                            Name = "Bao",
-                            Rating = 5
-                        },
-                        new
-                        {
-                            IdProduct = 1,
-                            IdUser = 3,
-                            Date = new DateTime(2022, 5, 23, 23, 23, 33, 520, DateTimeKind.Local).AddTicks(2309),
-                            Comment = "Bad",
-                            Name = "Bao",
-                            Rating = 1
-                        },
-                        new
-                        {
-                            IdProduct = 1,
-                            IdUser = 3,
-                            Date = new DateTime(2022, 5, 23, 23, 23, 33, 520, DateTimeKind.Local).AddTicks(2379),
-                            Comment = "Very Good",
-                            Name = "Bao",
-                            Rating = 5
-                        });
-                });
-
             modelBuilder.Entity("ltddnc_backend.Entity.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -595,17 +530,6 @@ namespace ltddnc_backend.Migrations
                         .WithMany("Products")
                         .HasForeignKey("IdCategory")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
-                {
-                    b.HasOne("ltddnc_backend.Entity.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.HasOne("ltddnc_backend.Entity.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserIdAccount");
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.User", b =>
