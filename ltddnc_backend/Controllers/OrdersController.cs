@@ -119,5 +119,31 @@ namespace ltddnc_backend.Controllers
                 return BadRequest();
             }
         }
+
+
+        [HttpPut("UpdateStateOrder/{idOrder}&&{state}")]
+        public IActionResult UpdateStateOrder(int idOrder, int state)
+        {
+            try
+            {
+                var order = _ordersRepository.GetOrderById(idOrder);
+                if (order != null)
+                {
+                    order.State = state;
+                    _ordersRepository.UpdateOrder(order);
+                    if (!_productsRepository.Save())
+                    {
+                        return BadRequest();
+                    }
+
+                    return Ok();
+                }
+                else return BadRequest();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }

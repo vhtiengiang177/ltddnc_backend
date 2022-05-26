@@ -65,6 +65,18 @@ namespace ltddnc_backend.Repository
             return result.Entity;
         }
 
+        public void UpdateOrder(Order order)
+        {
+            _dbContext.Attach(order);
+            _dbContext.Entry(order).State = EntityState.Modified;
+        }
+
+        public Order GetOrderById(int idOrder)
+        {
+            var order = _dbContext.Orders.Where(p => p.Id == idOrder).FirstOrDefault();
+
+            return order;
+        }
         public bool Save()
         {
             try
