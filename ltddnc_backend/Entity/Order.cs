@@ -14,6 +14,7 @@ namespace ltddnc_backend.Entity
         public string Address { get; set; }
         public DateTime CreateDate { get; set; }
         public int IdUser { get; set; }
+        //public int ReviewState { get; set; } = 0;
         public User User { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

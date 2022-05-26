@@ -22,8 +22,9 @@ namespace ltddnc_backend
         public DbSet<Product> Products { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -64,6 +65,10 @@ namespace ltddnc_backend
 
             modelBuilder.Entity<User>(entity => {
                 entity.HasKey(e => e.IdAccount);
+
+                entity.HasMany<Review>(e => e.Reviews)
+                       .WithOne(review => review.User)
+                       .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<OrderDetail>(entity => {
@@ -81,6 +86,10 @@ namespace ltddnc_backend
                 entity.HasOne<Category>(e => e.Category)
                         .WithMany(category => category.Products)
                         .HasForeignKey(e => e.IdCategory);
+
+                entity.HasMany<Review>(e => e.Reviews)
+                        .WithOne(review => review.Product)
+                        .OnDelete(DeleteBehavior.Cascade);
 
             });
 

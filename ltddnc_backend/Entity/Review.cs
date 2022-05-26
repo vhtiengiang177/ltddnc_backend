@@ -9,7 +9,7 @@ namespace ltddnc_backend.Entity
         public int IdUser { get; set; }
         public string Name { get; set; }
         public string Comment { get; set; }
-        public int Rating { get; set; } = 5;
+        public double Rating { get; set; } = 5;
         public DateTime Date { get; set; }
         public string? Image { get; set; }
 

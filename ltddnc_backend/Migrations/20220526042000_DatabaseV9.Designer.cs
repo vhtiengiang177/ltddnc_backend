@@ -10,8 +10,8 @@ using ltddnc_backend;
 namespace ltddnc_backend.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20220429092137_DatabaseV2")]
-    partial class DatabaseV2
+    [Migration("20220526042000_DatabaseV9")]
+    partial class DatabaseV9
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -163,8 +163,21 @@ namespace ltddnc_backend.Migrations
                             Id = 5,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
                             Name = "Kem",
-                            State = 0
+                            State = 1
                         });
+                });
+
+            modelBuilder.Entity("ltddnc_backend.Entity.Favorite", b =>
+                {
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProduct")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdUser", "IdProduct");
+
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.Order", b =>
@@ -174,17 +187,23 @@ namespace ltddnc_backend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("FeeDelivery")
-                        .HasColumnType("float");
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("IdUser")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("State")
                         .HasColumnType("int");
-
-                    b.Property<double>("TotalAmount")
-                        .HasColumnType("float");
 
                     b.Property<double>("TotalProductPrice")
                         .HasColumnType("float");
@@ -265,7 +284,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 1,
                             Description = "Gà sốt với đậu",
-                            IdCategory = 1,
+                            IdCategory = 2,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/ga-sot-dau.jpg?alt=media&token=168bac33-bfc6-445b-86cb-4b8b34410808",
                             Name = "Gà sốt đậu",
                             State = 1,
@@ -276,7 +295,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 2,
                             Description = "Gà sốt H&S",
-                            IdCategory = 1,
+                            IdCategory = 2,
                             Name = "Gà sốt H&S",
                             State = 1,
                             Stock = 100,
@@ -286,7 +305,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 3,
                             Description = "Burger Mozzarella",
-                            IdCategory = 2,
+                            IdCategory = 1,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-mozzarella.jpg?alt=media&token=3347cfdb-aea4-4008-8ec2-ddaad4f58000",
                             Name = "Burger Mozzarella",
                             State = 1,
@@ -297,7 +316,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 4,
                             Description = "Burger Double Double",
-                            IdCategory = 2,
+                            IdCategory = 1,
                             Name = "Burger Double Double",
                             State = 1,
                             Stock = 100,
@@ -351,7 +370,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 9,
                             Description = "Burger Bulgogi",
-                            IdCategory = 2,
+                            IdCategory = 1,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-bulgogi.jpg?alt=media&token=e387c83a-c0c8-454a-91c3-f374a32e9411",
                             Name = "Burger Bulgogi",
                             State = 1,
@@ -362,7 +381,7 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 10,
                             Description = "Burger Gà Thượng Hạng",
-                            IdCategory = 2,
+                            IdCategory = 1,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-ga.jpg?alt=media&token=377b21ad-58af-42b6-82c6-5951930f1a10",
                             Name = "Burger Gà Thượng Hạng",
                             State = 1,
@@ -373,12 +392,82 @@ namespace ltddnc_backend.Migrations
                         {
                             Id = 11,
                             Description = "Burger nhân tôm",
-                            IdCategory = 2,
+                            IdCategory = 1,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-tom-cua.jpg?alt=media&token=abffb82e-2d47-420b-9d64-fa77325ec7db",
                             Name = "Burger Tôm",
                             State = 1,
                             Stock = 100,
                             UnitPrice = 60000.0
+                        });
+                });
+
+            modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProduct")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id", "IdProduct", "IdUser");
+
+                    b.HasIndex("IdProduct");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("Reviews");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IdProduct = 1,
+                            IdUser = 3,
+                            Comment = "Good",
+                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
+                            Name = "Bao",
+                            Rating = 5.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IdProduct = 1,
+                            IdUser = 3,
+                            Comment = "Bad",
+                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
+                            Name = "Bao",
+                            Rating = 1.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IdProduct = 2,
+                            IdUser = 3,
+                            Comment = "Very Good",
+                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
+                            Name = "Bao",
+                            Rating = 5.0
                         });
                 });
 
@@ -441,28 +530,28 @@ namespace ltddnc_backend.Migrations
                             IdAccount = 1,
                             Address = "282  Nguyễn Duy Trinh, phường Bình Trưng Tây, Quận 2, TP. HCM",
                             Name = "Giang",
-                            Phone = "0328807778"
+                            Phone = "0328801234"
                         },
                         new
                         {
                             IdAccount = 2,
                             Address = "Số 1 Võ Văn Ngân, TP Thủ Đức, TP. HCM",
                             Name = "Thao",
-                            Phone = "0328807778"
+                            Phone = "0328807278"
                         },
                         new
                         {
                             IdAccount = 3,
                             Address = "20 Đặng Văn Bi, phường Trường Thọ, TP Thủ Đức",
                             Name = "Bao",
-                            Phone = "0328807778"
+                            Phone = "0328807986"
                         },
                         new
                         {
                             IdAccount = 4,
                             Address = "23/2 Đường số 8, TP Thủ Đức",
                             Name = "Yen",
-                            Phone = "0328807778"
+                            Phone = "0328807938"
                         });
                 });
 
@@ -479,6 +568,15 @@ namespace ltddnc_backend.Migrations
                 {
                     b.HasOne("ltddnc_backend.Entity.User", "User")
                         .WithMany("Carts")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ltddnc_backend.Entity.Favorite", b =>
+                {
+                    b.HasOne("ltddnc_backend.Entity.User", "User")
+                        .WithMany("Favorites")
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -510,6 +608,21 @@ namespace ltddnc_backend.Migrations
                         .WithMany("Products")
                         .HasForeignKey("IdCategory")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
+                {
+                    b.HasOne("ltddnc_backend.Entity.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("IdProduct")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ltddnc_backend.Entity.User", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.User", b =>

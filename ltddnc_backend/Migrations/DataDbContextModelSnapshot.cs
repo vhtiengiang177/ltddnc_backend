@@ -97,6 +97,14 @@ namespace ltddnc_backend.Migrations
                     b.HasKey("IdUser", "IdProduct");
 
                     b.ToTable("Carts");
+
+                    b.HasData(
+                        new
+                        {
+                            IdUser = 3,
+                            IdProduct = 1,
+                            Quantity = 20
+                        });
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.Category", b =>
@@ -393,17 +401,20 @@ namespace ltddnc_backend.Migrations
 
             modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
                 {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdProduct")
                         .HasColumnType("int");
 
                     b.Property<int>("IdUser")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -411,50 +422,50 @@ namespace ltddnc_backend.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
+                    b.HasKey("Id", "IdProduct", "IdUser");
 
-                    b.Property<int?>("UserIdAccount")
-                        .HasColumnType("int");
+                    b.HasIndex("IdProduct");
 
-                    b.HasKey("IdProduct", "IdUser", "Date");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserIdAccount");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("Reviews");
 
                     b.HasData(
                         new
                         {
+                            Id = 1,
                             IdProduct = 1,
                             IdUser = 3,
-                            Date = new DateTime(2022, 5, 23, 23, 23, 33, 519, DateTimeKind.Local).AddTicks(1114),
                             Comment = "Good",
+                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
                             Name = "Bao",
-                            Rating = 5
+                            Rating = 5.0
                         },
                         new
                         {
+                            Id = 2,
                             IdProduct = 1,
                             IdUser = 3,
-                            Date = new DateTime(2022, 5, 23, 23, 23, 33, 520, DateTimeKind.Local).AddTicks(2309),
                             Comment = "Bad",
+                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
                             Name = "Bao",
-                            Rating = 1
+                            Rating = 1.0
                         },
                         new
                         {
-                            IdProduct = 1,
+                            Id = 3,
+                            IdProduct = 2,
                             IdUser = 3,
-                            Date = new DateTime(2022, 5, 23, 23, 23, 33, 520, DateTimeKind.Local).AddTicks(2379),
                             Comment = "Very Good",
+                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
                             Name = "Bao",
-                            Rating = 5
+                            Rating = 5.0
                         });
                 });
 
@@ -600,12 +611,16 @@ namespace ltddnc_backend.Migrations
             modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
                 {
                     b.HasOne("ltddnc_backend.Entity.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
+                        .WithMany("Reviews")
+                        .HasForeignKey("IdProduct")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ltddnc_backend.Entity.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserIdAccount");
+                        .WithMany("Reviews")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.User", b =>
