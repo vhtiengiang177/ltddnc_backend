@@ -1,4 +1,5 @@
 ﻿using ltddnc_backend.Entity;
+using System;
 
 namespace ltddnc_backend.Model
 {
@@ -11,6 +12,7 @@ namespace ltddnc_backend.Model
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
+        public DateTime CreateDate { get; set; }
         public int IdUser { get; set; }
         public OrderDetailUI FirstOrderDetail { get; set; }
     }

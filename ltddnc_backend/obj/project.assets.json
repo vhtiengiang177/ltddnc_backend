@@ -6166,19 +6166,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Thao\\.nuget\\packages\\": {}
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\CuoiKy\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj",
+      "projectUniqueName": "D:\\Flutter\\lttd\\ltddnc_backend\\ltddnc_backend\\ltddnc_backend.csproj",
       "projectName": "ltddnc_backend",
-      "projectPath": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\CuoiKy\\BE_Flutter\\ltddnc_backend\\ltddnc_backend.csproj",
-      "packagesPath": "C:\\Users\\Thao\\.nuget\\packages\\",
-      "outputPath": "D:\\SPKT\\TAI_LIEU_NAM_4\\LTDDNC\\CuoiKy\\BE_Flutter\\ltddnc_backend\\obj\\",
+      "projectPath": "D:\\Flutter\\lttd\\ltddnc_backend\\ltddnc_backend\\ltddnc_backend.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "D:\\Flutter\\lttd\\ltddnc_backend\\ltddnc_backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Thao\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6265,7 +6265,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
