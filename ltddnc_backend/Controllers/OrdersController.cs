@@ -130,6 +130,10 @@ namespace ltddnc_backend.Controllers
                 if (order != null)
                 {
                     order.State = state;
+                    if (state == 4)
+                    {
+                        order.CancelDate = DateTime.Now;
+                    }
                     _ordersRepository.UpdateOrder(order);
                     if (!_productsRepository.Save())
                     {

@@ -117,7 +117,10 @@ namespace ltddnc_backend.Controllers
                 user.Name = userAccountParams.Name;
                 user.Phone = userAccountParams.Phone;
                 user.Address = userAccountParams.Address;
-                user.Image = userAccountParams.Image;
+                if (userAccountParams.Image != "")
+                {
+                    user.Image = userAccountParams.Image;
+                }
                 _accountsRepository.UpdateUser(user);
                 if (!_accountsRepository.Save())
                 {

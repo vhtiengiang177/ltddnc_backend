@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ltddnc_backend;
 
 namespace ltddnc_backend.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220527172638_DatabaseV7")]
+    partial class DatabaseV7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,14 +99,6 @@ namespace ltddnc_backend.Migrations
                     b.HasKey("IdUser", "IdProduct");
 
                     b.ToTable("Carts");
-
-                    b.HasData(
-                        new
-                        {
-                            IdUser = 3,
-                            IdProduct = 1,
-                            Quantity = 20
-                        });
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.Category", b =>
@@ -402,76 +396,6 @@ namespace ltddnc_backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProduct")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id", "IdProduct", "IdUser");
-
-                    b.HasIndex("IdProduct");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("Reviews");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IdProduct = 1,
-                            IdUser = 3,
-                            Comment = "Good",
-                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
-                            Name = "Bao",
-                            Rating = 5.0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IdProduct = 1,
-                            IdUser = 3,
-                            Comment = "Bad",
-                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
-                            Name = "Bao",
-                            Rating = 1.0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IdProduct = 2,
-                            IdUser = 3,
-                            Comment = "Very Good",
-                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
-                            Name = "Bao",
-                            Rating = 5.0
-                        });
-                });
-
             modelBuilder.Entity("ltddnc_backend.Entity.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -609,21 +533,6 @@ namespace ltddnc_backend.Migrations
                         .WithMany("Products")
                         .HasForeignKey("IdCategory")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
-                {
-                    b.HasOne("ltddnc_backend.Entity.Product", "Product")
-                        .WithMany("Reviews")
-                        .HasForeignKey("IdProduct")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ltddnc_backend.Entity.User", "User")
-                        .WithMany("Reviews")
-                        .HasForeignKey("IdUser")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.User", b =>
