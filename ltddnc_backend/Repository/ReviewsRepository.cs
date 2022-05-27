@@ -29,6 +29,13 @@ namespace ltddnc_backend.Repository
             return result.Entity;
         }
 
+        public async Task<IQueryable<Review>> GetReviews()
+        {
+            var lReview = await _dbContext.Reviews.ToListAsync();
+
+            return lReview.AsQueryable();
+        }
+
         public bool Save()
         {
             try

@@ -175,10 +175,10 @@ namespace ltddnc_backend
             //   new Cart() { IdUser = 3, IdProduct = 2, Quantity = 2 },
             //   new Cart() { IdUser = 3, IdProduct = 5, Quantity = 2 });
 
-            modelBuilder.Entity<Review>().HasData(
-               new Review() { Id = 1, IdProduct = 1, IdUser = 3, Name = "Bao", Rating = 5, Date = createdDateNew, Comment = "Good",  Image  = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94" },
-               new Review() { Id = 2, IdProduct = 1, IdUser = 3, Name = "Bao", Rating = 1, Date = createdDateNew, Comment = "Bad",  Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94" },
-               new Review() { Id = 3, IdProduct = 2, IdUser = 3, Name = "Bao", Rating = 5, Date = createdDateNew, Comment = "Very Good", Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94" });
+            //modelBuilder.Entity<Review>().HasData(
+            //   new Review() { Id = 1, IdProduct = 1, IdUser = 3, Name = "Bao", Rating = 5, Date = createdDateNew, Comment = "Good",  Image  = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",IdOrder = 1 },
+            //   new Review() { Id = 2, IdProduct = 1, IdUser = 3, Name = "Bao", Rating = 1, Date = createdDateNew, Comment = "Bad",  Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94", IdOrder = 1 },
+            //   new Review() { Id = 3, IdProduct = 2, IdUser = 3, Name = "Bao", Rating = 5, Date = createdDateNew, Comment = "Very Good", Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94", IdOrder =1 });
                
             modelBuilder.Entity<Cart>().HasData(
                new Cart() { IdUser = 3, IdProduct = 1, Quantity = 20 });

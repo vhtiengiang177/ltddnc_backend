@@ -13,6 +13,7 @@ namespace ltddnc_backend.Model
         public string Phone { get; set; }
         public string Address { get; set; }
         public DateTime CreateDate { get; set; }
+
         public int IdUser { get; set; }
         public OrderDetailUI FirstOrderDetail { get; set; }
     }

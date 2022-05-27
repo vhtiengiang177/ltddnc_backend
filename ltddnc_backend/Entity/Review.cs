@@ -12,8 +12,12 @@ namespace ltddnc_backend.Entity
         public double Rating { get; set; } = 5;
         public DateTime Date { get; set; }
         public string? Image { get; set; }
+        public int IdOrder { get; set; }
+        public string? NameProduct { get; set; }
+        public string? ImageProduct { get; set; }
 
         public  User User { get; set; }
         public  Product Product { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

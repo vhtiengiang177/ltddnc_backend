@@ -14,7 +14,7 @@ namespace ltddnc_backend.Entity
         public Category Category { get; set; }
         public string? Image { get; set; }
 
-        //public double AvgRating { get; set; }
+        public double? AvgRating { get; set; } = 0;
         public virtual ICollection<Review> Reviews { get; set; }
     }
 }
