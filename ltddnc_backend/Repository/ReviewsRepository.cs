@@ -36,6 +36,20 @@ namespace ltddnc_backend.Repository
             return lReview.AsQueryable();
         }
 
+        public int GetCountReview(int idProduct)
+        {
+            int count =  _dbContext.Reviews.Where(r=>r.IdProduct == idProduct).Count();
+
+            return count;
+        }
+
+        public double GetSumRating(int idProduct)
+        {
+            double sum = _dbContext.Reviews.Where(r => r.IdProduct == idProduct).Select(r => r.Rating).Sum();
+
+            return sum;
+        }
+
         public bool Save()
         {
             try

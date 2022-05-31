@@ -44,54 +44,57 @@ namespace ltddnc_backend.Controllers
         }
 
         [HttpPost("CreateReview")]
-        public async Task<IActionResult> CreateReview([FromBody] Review reviewObj)
+        public async Task<IActionResult> CreateReview([FromBody] List<Review> lRevieParams)
         {
             try
             {
-                User user = _accountRepository.GetUserByID(reviewObj.Id);
-                Product product = _productsRepository.GetProductByID(reviewObj.IdProduct);
+                User user = _accountRepository.GetUserByID(lRevieParams[0].IdUser);
                 IQueryable<Review> lReviews;
                 lReviews = await _reviewsRepository.GetReviews();
-                Review review = new Review()
-                {
-                    Id = lReviews.Count() + 1,
-                    IdUser = reviewObj.IdUser,
-                    IdProduct = reviewObj.IdProduct,
-                    Name = user.Name,
-                    //Image = product.Image,
-                    Comment = reviewObj.Comment,
-                    Date = DateTime.Now,
-                    Rating = reviewObj.Rating,
-                    IdOrder = reviewObj.IdOrder,
-                    NameProduct = product.Name,
-                    ImageProduct = product.Image
-                };
 
-                var result = _reviewsRepository.CreateReview(review);
-                _reviewsRepository.Save();
+                foreach(var  reviewUI in lRevieParams) {
+                    Review reviewObj = new Review()
+                    {
+                        IdUser = reviewUI.IdUser,
+                        IdProduct = reviewUI.IdProduct,
+                        Name = user.Name,
+                        Image = user.Image,
+                        Comment = reviewUI.Comment,
+                        Date = reviewUI.Date,
+                        Rating = reviewUI.Rating,
+                        IdOrder = reviewUI.IdOrder,
+                        NameProduct = reviewUI.Name,
+                        ImageProduct = reviewUI.Image
+                    };
 
-                //update avg rating
-                double sumRating = lReviews.Select(r => r.Rating).Sum();
-                int countRating = lReviews.Where(r => r.IdProduct == reviewObj.IdProduct).Count();
-                if (countRating != 0)
-                {
-                    product.AvgRating = Math.Round(sumRating / countRating, 2);
-                    _productsRepository.UpdateProduct(product);
+                    var result = _reviewsRepository.CreateReview(reviewObj);
+                    _reviewsRepository.Save();
+
+
+                    Product product = _productsRepository.GetProductByID(reviewObj.IdProduct);
+                    //update avg rating
+                    double sumRating = _reviewsRepository.GetSumRating(reviewObj.IdProduct);
+                    int countRating = _reviewsRepository.GetCountReview(reviewObj.IdProduct);
+                    if (countRating != 0)
+                    {
+                        product.AvgRating = Math.Round(sumRating / countRating, 2);
+                        _productsRepository.UpdateProduct(product);
+                        _productsRepository.Save();
+
+                    }
                 }
+
 
                 //update review state
-                Order order = _ordersRepository.GetOrderById(reviewObj.IdOrder);
+                Order order = _ordersRepository.GetOrderById(lRevieParams[0].IdOrder);
                 order.State = 1;
                 _ordersRepository.UpdateOrder(order);
+                _ordersRepository.Save();
 
-                if (_reviewsRepository.Save())
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return BadRequest();
-                }
+               
+                
+                    return Ok();
+                
             }
             catch
             {

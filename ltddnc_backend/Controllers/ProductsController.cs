@@ -134,5 +134,19 @@ namespace ltddnc_backend.Controllers
             }
         }
 
+        [HttpGet("GetTop10NewProduct")]
+        public async Task<IActionResult> GetTop10NewProduct()
+        {
+            try
+            {
+
+                return Ok(_productsRepository.GetTop10Products());
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

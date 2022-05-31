@@ -18,6 +18,6 @@ namespace ltddnc_backend.Entity
 
         public  User User { get; set; }
         public  Product Product { get; set; }
-        public virtual Order Order { get; set; }
+        public  Order Order { get; set; }
     }
 }

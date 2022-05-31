@@ -10,8 +10,8 @@ using ltddnc_backend;
 namespace ltddnc_backend.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20220527095448_DatabaseV13")]
-    partial class DatabaseV13
+    [Migration("20220528024030_DatabaseV2")]
+    partial class DatabaseV2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -190,6 +190,9 @@ namespace ltddnc_backend.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("CancelDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -257,6 +260,9 @@ namespace ltddnc_backend.Migrations
 
                     b.Property<double?>("AvgRating")
                         .HasColumnType("float");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -421,13 +427,9 @@ namespace ltddnc_backend.Migrations
             modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProduct")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
@@ -438,65 +440,36 @@ namespace ltddnc_backend.Migrations
                     b.Property<int>("IdOrder")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdProduct")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
                     b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageProduct")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<string>("NameProduct")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
 
-                    b.HasKey("Id", "IdProduct", "IdUser");
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdOrder");
 
                     b.HasIndex("IdProduct");
 
                     b.HasIndex("IdUser");
 
-                    b.HasIndex("OrderId");
-
                     b.ToTable("Reviews");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IdProduct = 1,
-                            IdUser = 3,
-                            Comment = "Good",
-                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IdOrder = 1,
-                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
-                            Name = "Bao",
-                            Rating = 5.0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IdProduct = 1,
-                            IdUser = 3,
-                            Comment = "Bad",
-                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IdOrder = 1,
-                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
-                            Name = "Bao",
-                            Rating = 1.0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IdProduct = 2,
-                            IdUser = 3,
-                            Comment = "Very Good",
-                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IdOrder = 1,
-                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
-                            Name = "Bao",
-                            Rating = 5.0
-                        });
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.Role", b =>
@@ -640,6 +613,12 @@ namespace ltddnc_backend.Migrations
 
             modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
                 {
+                    b.HasOne("ltddnc_backend.Entity.Order", "Order")
+                        .WithMany("Reviews")
+                        .HasForeignKey("IdOrder")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ltddnc_backend.Entity.Product", "Product")
                         .WithMany("Reviews")
                         .HasForeignKey("IdProduct")
@@ -651,10 +630,6 @@ namespace ltddnc_backend.Migrations
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ltddnc_backend.Entity.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.User", b =>

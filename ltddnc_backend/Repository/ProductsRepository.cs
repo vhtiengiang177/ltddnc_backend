@@ -73,6 +73,15 @@ namespace ltddnc_backend.Repository
             return lProduct.AsQueryable();
         }
 
+        public IQueryable<Product> GetTop10Products()
+        {
+            var lProduct = _dbContext.Products.Where(p => p.State > 0).OrderByDescending(i => i.CreatedDate).ToList().Take(10);
+
+
+
+            return lProduct.AsQueryable();
+        }
+
 
         public bool Save()
         {

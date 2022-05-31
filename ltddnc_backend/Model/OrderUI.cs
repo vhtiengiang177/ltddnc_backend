@@ -16,5 +16,6 @@ namespace ltddnc_backend.Model
         public DateTime? CancelDate { get; set; }
         public int IdUser { get; set; }
         public OrderDetailUI FirstOrderDetail { get; set; }
+        public int ReviewState { get; set; } = 0; //0: Chua danh gia, 1: Da danh gia
     }
 }

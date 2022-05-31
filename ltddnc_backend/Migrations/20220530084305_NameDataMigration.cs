@@ -2,7 +2,7 @@
 
 namespace ltddnc_backend.Migrations
 {
-    public partial class DatabaseV10 : Migration
+    public partial class NameDataMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

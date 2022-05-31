@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ltddnc_backend.Migrations
 {
-    public partial class DatabaseV8 : Migration
+    public partial class DatabaseV1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,7 +48,8 @@ namespace ltddnc_backend.Migrations
                     UnitPrice = table.Column<double>(nullable: false),
                     State = table.Column<int>(nullable: false),
                     IdCategory = table.Column<int>(nullable: true),
-                    Image = table.Column<string>(nullable: true)
+                    Image = table.Column<string>(nullable: true),
+                    AvgRating = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -154,7 +155,9 @@ namespace ltddnc_backend.Migrations
                     Phone = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     CreateDate = table.Column<DateTime>(nullable: false),
+                    CancelDate = table.Column<DateTime>(nullable: true),
                     IdUser = table.Column<int>(nullable: false),
+                    ReviewState = table.Column<int>(nullable: false),
                     UserIdAccount = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -166,36 +169,6 @@ namespace ltddnc_backend.Migrations
                         principalTable: "Users",
                         principalColumn: "IdAccount",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Reviews",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false),
-                    IdProduct = table.Column<int>(nullable: false),
-                    IdUser = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Comment = table.Column<string>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false),
-                    Image = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reviews", x => new { x.Id, x.IdProduct, x.IdUser });
-                    table.ForeignKey(
-                        name: "FK_Reviews_Products_IdProduct",
-                        column: x => x.IdProduct,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Reviews_Users_IdUser",
-                        column: x => x.IdUser,
-                        principalTable: "Users",
-                        principalColumn: "IdAccount",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -223,6 +196,46 @@ namespace ltddnc_backend.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdProduct = table.Column<int>(nullable: false),
+                    IdUser = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Comment = table.Column<string>(nullable: true),
+                    Rating = table.Column<double>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
+                    IdOrder = table.Column<int>(nullable: false),
+                    NameProduct = table.Column<string>(nullable: true),
+                    ImageProduct = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Orders_IdOrder",
+                        column: x => x.IdOrder,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Products_IdProduct",
+                        column: x => x.IdProduct,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Users_IdUser",
+                        column: x => x.IdUser,
+                        principalTable: "Users",
+                        principalColumn: "IdAccount",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -259,20 +272,20 @@ namespace ltddnc_backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "Description", "IdCategory", "Image", "Name", "State", "Stock", "UnitPrice" },
+                columns: new[] { "Id", "AvgRating", "Description", "IdCategory", "Image", "Name", "State", "Stock", "UnitPrice" },
                 values: new object[,]
                 {
-                    { 3, "Burger Mozzarella", 1, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-mozzarella.jpg?alt=media&token=3347cfdb-aea4-4008-8ec2-ddaad4f58000", "Burger Mozzarella", 1, 100, 50000.0 },
-                    { 4, "Burger Double Double", 1, null, "Burger Double Double", 1, 100, 60000.0 },
-                    { 9, "Burger Bulgogi", 1, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-bulgogi.jpg?alt=media&token=e387c83a-c0c8-454a-91c3-f374a32e9411", "Burger Bulgogi", 1, 100, 45000.0 },
-                    { 10, "Burger Gà Thượng Hạng", 1, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-ga.jpg?alt=media&token=377b21ad-58af-42b6-82c6-5951930f1a10", "Burger Gà Thượng Hạng", 1, 100, 60000.0 },
-                    { 11, "Burger nhân tôm", 1, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-tom-cua.jpg?alt=media&token=abffb82e-2d47-420b-9d64-fa77325ec7db", "Burger Tôm", 1, 100, 60000.0 },
-                    { 1, "Gà sốt với đậu", 2, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/ga-sot-dau.jpg?alt=media&token=168bac33-bfc6-445b-86cb-4b8b34410808", "Gà sốt đậu", 1, 100, 38000.0 },
-                    { 2, "Gà sốt H&S", 2, null, "Gà sốt H&S", 1, 100, 38000.0 },
-                    { 5, "Mì Ý", 3, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/mi-y.jpg?alt=media&token=f31dd329-e97c-4a27-8c6a-24462a1ff050", "Mì Ý", 1, 100, 35000.0 },
-                    { 6, "Mì Ý Thịt Bò", 3, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/mi-y-thit-bo.jpg?alt=media&token=c4bcc54f-2810-4079-a499-8f2622585454", "Mì Ý Thịt Bò", 1, 100, 40000.0 },
-                    { 7, "Nước ngọt có ga 7Up", 4, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/7up.jpg?alt=media&token=b84b0fed-f68b-486c-b67d-5b989f54609f", "7Up", 1, 100, 15000.0 },
-                    { 8, "Nước Cam", 4, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/nuoc-cam.jpg?alt=media&token=e195a521-278b-450f-8027-69164bfeae1b", "Nước Cam", 1, 100, 18000.0 }
+                    { 3, 0.0, "Burger Mozzarella", 1, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-mozzarella.jpg?alt=media&token=3347cfdb-aea4-4008-8ec2-ddaad4f58000", "Burger Mozzarella", 1, 100, 50000.0 },
+                    { 4, 0.0, "Burger Double Double", 1, null, "Burger Double Double", 1, 100, 60000.0 },
+                    { 9, 0.0, "Burger Bulgogi", 1, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-bulgogi.jpg?alt=media&token=e387c83a-c0c8-454a-91c3-f374a32e9411", "Burger Bulgogi", 1, 100, 45000.0 },
+                    { 10, 0.0, "Burger Gà Thượng Hạng", 1, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-ga.jpg?alt=media&token=377b21ad-58af-42b6-82c6-5951930f1a10", "Burger Gà Thượng Hạng", 1, 100, 60000.0 },
+                    { 11, 0.0, "Burger nhân tôm", 1, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-tom-cua.jpg?alt=media&token=abffb82e-2d47-420b-9d64-fa77325ec7db", "Burger Tôm", 1, 100, 60000.0 },
+                    { 1, 0.0, "Gà sốt với đậu", 2, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/ga-sot-dau.jpg?alt=media&token=168bac33-bfc6-445b-86cb-4b8b34410808", "Gà sốt đậu", 1, 100, 38000.0 },
+                    { 2, 0.0, "Gà sốt H&S", 2, null, "Gà sốt H&S", 1, 100, 38000.0 },
+                    { 5, 0.0, "Mì Ý", 3, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/mi-y.jpg?alt=media&token=f31dd329-e97c-4a27-8c6a-24462a1ff050", "Mì Ý", 1, 100, 35000.0 },
+                    { 6, 0.0, "Mì Ý Thịt Bò", 3, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/mi-y-thit-bo.jpg?alt=media&token=c4bcc54f-2810-4079-a499-8f2622585454", "Mì Ý Thịt Bò", 1, 100, 40000.0 },
+                    { 7, 0.0, "Nước ngọt có ga 7Up", 4, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/7up.jpg?alt=media&token=b84b0fed-f68b-486c-b67d-5b989f54609f", "7Up", 1, 100, 15000.0 },
+                    { 8, 0.0, "Nước Cam", 4, "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/nuoc-cam.jpg?alt=media&token=e195a521-278b-450f-8027-69164bfeae1b", "Nước Cam", 1, 100, 18000.0 }
                 });
 
             migrationBuilder.InsertData(
@@ -290,16 +303,6 @@ namespace ltddnc_backend.Migrations
                 table: "Carts",
                 columns: new[] { "IdUser", "IdProduct", "Quantity" },
                 values: new object[] { 3, 1, 20 });
-
-            migrationBuilder.InsertData(
-                table: "Reviews",
-                columns: new[] { "Id", "IdProduct", "IdUser", "Comment", "Date", "Image", "Name", "Rating" },
-                values: new object[,]
-                {
-                    { 1, 1, 3, "Good", new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94", "Bao", 5 },
-                    { 2, 1, 3, "Bad", new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94", "Bao", 1 },
-                    { 3, 2, 3, "Very Good", new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94", "Bao", 5 }
-                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Accounts_Email",
@@ -327,6 +330,11 @@ namespace ltddnc_backend.Migrations
                 name: "IX_Products_IdCategory",
                 table: "Products",
                 column: "IdCategory");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_IdOrder",
+                table: "Reviews",
+                column: "IdOrder");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_IdProduct",

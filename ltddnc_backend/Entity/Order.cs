@@ -15,9 +15,10 @@ namespace ltddnc_backend.Entity
         public DateTime CreateDate { get; set; }
         public DateTime? CancelDate { get; set; }
         public int IdUser { get; set; }
-        //public int ReviewState { get; set; } = 0;
+        public int ReviewState { get; set; } = 0; //0: Chua danh gia, 1: Da danh gia
         public User User { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

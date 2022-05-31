@@ -203,6 +203,9 @@ namespace ltddnc_backend.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ReviewState")
+                        .HasColumnType("int");
+
                     b.Property<int>("State")
                         .HasColumnType("int");
 
@@ -253,6 +256,12 @@ namespace ltddnc_backend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double?>("AvgRating")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -284,6 +293,7 @@ namespace ltddnc_backend.Migrations
                         new
                         {
                             Id = 1,
+                            AvgRating = 0.0,
                             Description = "Gà sốt với đậu",
                             IdCategory = 2,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/ga-sot-dau.jpg?alt=media&token=168bac33-bfc6-445b-86cb-4b8b34410808",
@@ -295,6 +305,7 @@ namespace ltddnc_backend.Migrations
                         new
                         {
                             Id = 2,
+                            AvgRating = 0.0,
                             Description = "Gà sốt H&S",
                             IdCategory = 2,
                             Name = "Gà sốt H&S",
@@ -305,6 +316,7 @@ namespace ltddnc_backend.Migrations
                         new
                         {
                             Id = 3,
+                            AvgRating = 0.0,
                             Description = "Burger Mozzarella",
                             IdCategory = 1,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-mozzarella.jpg?alt=media&token=3347cfdb-aea4-4008-8ec2-ddaad4f58000",
@@ -316,6 +328,7 @@ namespace ltddnc_backend.Migrations
                         new
                         {
                             Id = 4,
+                            AvgRating = 0.0,
                             Description = "Burger Double Double",
                             IdCategory = 1,
                             Name = "Burger Double Double",
@@ -326,6 +339,7 @@ namespace ltddnc_backend.Migrations
                         new
                         {
                             Id = 5,
+                            AvgRating = 0.0,
                             Description = "Mì Ý",
                             IdCategory = 3,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/mi-y.jpg?alt=media&token=f31dd329-e97c-4a27-8c6a-24462a1ff050",
@@ -337,6 +351,7 @@ namespace ltddnc_backend.Migrations
                         new
                         {
                             Id = 6,
+                            AvgRating = 0.0,
                             Description = "Mì Ý Thịt Bò",
                             IdCategory = 3,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/mi-y-thit-bo.jpg?alt=media&token=c4bcc54f-2810-4079-a499-8f2622585454",
@@ -348,6 +363,7 @@ namespace ltddnc_backend.Migrations
                         new
                         {
                             Id = 7,
+                            AvgRating = 0.0,
                             Description = "Nước ngọt có ga 7Up",
                             IdCategory = 4,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/7up.jpg?alt=media&token=b84b0fed-f68b-486c-b67d-5b989f54609f",
@@ -359,6 +375,7 @@ namespace ltddnc_backend.Migrations
                         new
                         {
                             Id = 8,
+                            AvgRating = 0.0,
                             Description = "Nước Cam",
                             IdCategory = 4,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/nuoc-cam.jpg?alt=media&token=e195a521-278b-450f-8027-69164bfeae1b",
@@ -370,6 +387,7 @@ namespace ltddnc_backend.Migrations
                         new
                         {
                             Id = 9,
+                            AvgRating = 0.0,
                             Description = "Burger Bulgogi",
                             IdCategory = 1,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-bulgogi.jpg?alt=media&token=e387c83a-c0c8-454a-91c3-f374a32e9411",
@@ -381,6 +399,7 @@ namespace ltddnc_backend.Migrations
                         new
                         {
                             Id = 10,
+                            AvgRating = 0.0,
                             Description = "Burger Gà Thượng Hạng",
                             IdCategory = 1,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-ga.jpg?alt=media&token=377b21ad-58af-42b6-82c6-5951930f1a10",
@@ -392,6 +411,7 @@ namespace ltddnc_backend.Migrations
                         new
                         {
                             Id = 11,
+                            AvgRating = 0.0,
                             Description = "Burger nhân tôm",
                             IdCategory = 1,
                             Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/burger-tom-cua.jpg?alt=media&token=abffb82e-2d47-420b-9d64-fa77325ec7db",
@@ -405,6 +425,17 @@ namespace ltddnc_backend.Migrations
             modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdOrder")
                         .HasColumnType("int");
 
                     b.Property<int>("IdProduct")
@@ -413,63 +444,30 @@ namespace ltddnc_backend.Migrations
                     b.Property<int>("IdUser")
                         .HasColumnType("int");
 
-                    b.Property<string>("Comment")
+                    b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Image")
+                    b.Property<string>("ImageProduct")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NameProduct")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("Rating")
                         .HasColumnType("float");
 
-                    b.HasKey("Id", "IdProduct", "IdUser");
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdOrder");
 
                     b.HasIndex("IdProduct");
 
                     b.HasIndex("IdUser");
 
                     b.ToTable("Reviews");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IdProduct = 1,
-                            IdUser = 3,
-                            Comment = "Good",
-                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
-                            Name = "Bao",
-                            Rating = 5.0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IdProduct = 1,
-                            IdUser = 3,
-                            Comment = "Bad",
-                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
-                            Name = "Bao",
-                            Rating = 1.0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IdProduct = 2,
-                            IdUser = 3,
-                            Comment = "Very Good",
-                            Date = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",
-                            Name = "Bao",
-                            Rating = 5.0
-                        });
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.Role", b =>
@@ -613,6 +611,12 @@ namespace ltddnc_backend.Migrations
 
             modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
                 {
+                    b.HasOne("ltddnc_backend.Entity.Order", "Order")
+                        .WithMany("Reviews")
+                        .HasForeignKey("IdOrder")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ltddnc_backend.Entity.Product", "Product")
                         .WithMany("Reviews")
                         .HasForeignKey("IdProduct")

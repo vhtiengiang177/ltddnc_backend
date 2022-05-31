@@ -66,9 +66,9 @@ namespace ltddnc_backend
             modelBuilder.Entity<User>(entity => {
                 entity.HasKey(e => e.IdAccount);
 
-                entity.HasMany<Review>(e => e.Reviews)
-                       .WithOne(review => review.User)
-                       .OnDelete(DeleteBehavior.Cascade);
+                //entity.HasMany<Review>(e => e.Reviews)
+                //       .WithOne(review => review.User)
+                //       .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<OrderDetail>(entity => {
@@ -94,7 +94,7 @@ namespace ltddnc_backend
             });
 
             modelBuilder.Entity<Review>(entity => {
-                entity.HasKey(e => new { e.Id, e.IdProduct, e.IdUser });
+                entity.HasKey(e => new { e.Id });
 
                 entity.HasOne<Product>(e => e.Product)
                     .WithMany(f => f.Reviews)
@@ -103,6 +103,10 @@ namespace ltddnc_backend
                 entity.HasOne<User>(e => e.User)
                     .WithMany(f => f.Reviews)
                     .HasForeignKey(e => e.IdUser);
+
+                entity.HasOne<Order>(e => e.Order)
+                    .WithMany(f => f.Reviews)
+                    .HasForeignKey(e => e.IdOrder);
             });
 
 
@@ -119,6 +123,14 @@ namespace ltddnc_backend
                 entity.HasOne<User>(e => e.User)
                     .WithMany(f => f.Favorites)
                     .HasForeignKey(e => e.IdUser);
+            });
+
+            modelBuilder.Entity<Order>(entity => {
+                entity.HasKey(e => new {e.Id });
+
+                entity.HasMany<Review>(e => e.Reviews)
+                       .WithOne(review => review.Order)
+                       .OnDelete(DeleteBehavior.Cascade);
             });
 
             SeedData(modelBuilder);

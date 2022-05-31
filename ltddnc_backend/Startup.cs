@@ -28,7 +28,8 @@ namespace ltddnc_backend
             //Giang
             //services.AddDbContext<DataDbContext>(options => options.UseSqlServer(@"Data Source=localhost; Integrated Security=True; Initial Catalog=flutterdb;"));
             // Thao
-            services.AddDbContext<DataDbContext>(options => options.UseSqlServer(@"Data Source=localhost; Initial Catalog=flutterdb; User ID=sa; PWD=kimdong"));
+            services.AddDbContext<DataDbContext>(options => options.UseSqlServer(@"Data Source=localhost; Initial Catalog=flutterdb; 
+                                                                                    User ID=sa; PWD=kimdong"));
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo

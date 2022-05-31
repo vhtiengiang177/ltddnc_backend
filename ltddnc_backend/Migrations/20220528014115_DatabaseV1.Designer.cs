@@ -10,8 +10,8 @@ using ltddnc_backend;
 namespace ltddnc_backend.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20220527192127_DatabaseV14")]
-    partial class DatabaseV14
+    [Migration("20220528014115_DatabaseV1")]
+    partial class DatabaseV1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -189,6 +189,9 @@ namespace ltddnc_backend.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CancelDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -421,13 +424,9 @@ namespace ltddnc_backend.Migrations
             modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProduct")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
@@ -436,6 +435,12 @@ namespace ltddnc_backend.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("IdOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProduct")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdUser")
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
@@ -450,19 +455,16 @@ namespace ltddnc_backend.Migrations
                     b.Property<string>("NameProduct")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<double>("Rating")
                         .HasColumnType("float");
 
-                    b.HasKey("Id", "IdProduct", "IdUser");
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdOrder");
 
                     b.HasIndex("IdProduct");
 
                     b.HasIndex("IdUser");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Reviews");
                 });
@@ -608,6 +610,12 @@ namespace ltddnc_backend.Migrations
 
             modelBuilder.Entity("ltddnc_backend.Entity.Review", b =>
                 {
+                    b.HasOne("ltddnc_backend.Entity.Order", "Order")
+                        .WithMany("Reviews")
+                        .HasForeignKey("IdOrder")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ltddnc_backend.Entity.Product", "Product")
                         .WithMany("Reviews")
                         .HasForeignKey("IdProduct")
@@ -619,10 +627,6 @@ namespace ltddnc_backend.Migrations
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ltddnc_backend.Entity.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("ltddnc_backend.Entity.User", b =>
