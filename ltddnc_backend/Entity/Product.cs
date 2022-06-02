@@ -1,4 +1,6 @@
-﻿namespace ltddnc_backend.Entity
+﻿using System;
+
+namespace ltddnc_backend.Entity
 {
     public class Product
     {
@@ -9,6 +11,7 @@
         public double UnitPrice { get; set; }
         public int State { get; set; } = 1;
         public int? IdCategory { get; set; }
+        public DateTime CreatedDate { get; set; }
         public Category Category { get; set; }
         public string? Image { get; set; }
     }
