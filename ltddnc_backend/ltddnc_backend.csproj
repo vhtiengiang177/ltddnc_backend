@@ -7,6 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20220521091933_DatabaseV5.cs" />
     <Compile Remove="Migrations\20220521091933_DatabaseV5.Designer.cs" />
+    <Compile Remove="Migrations\20220528012920_DatabaseV4.cs" />
+    <Compile Remove="Migrations\20220528012920_DatabaseV4.Designer.cs" />
+    <Compile Remove="Migrations\20220528013128_DatabaseV5.cs" />
+    <Compile Remove="Migrations\20220528013128_DatabaseV5.Designer.cs" />
+    <Compile Remove="Migrations\20220528013225_DatabaseV6.cs" />
+    <Compile Remove="Migrations\20220528013225_DatabaseV6.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +29,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.3.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 

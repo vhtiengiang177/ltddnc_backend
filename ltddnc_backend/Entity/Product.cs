@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ltddnc_backend.Entity
 {
@@ -14,5 +15,9 @@ namespace ltddnc_backend.Entity
         public DateTime CreatedDate { get; set; }
         public Category Category { get; set; }
         public string? Image { get; set; }
+        public DateTime? CreatedDate { get; set; }
+
+        public double? AvgRating { get; set; } = 0;
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

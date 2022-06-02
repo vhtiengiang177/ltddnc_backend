@@ -22,7 +22,9 @@ namespace ltddnc_backend
         public DbSet<Product> Products { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -63,6 +65,10 @@ namespace ltddnc_backend
 
             modelBuilder.Entity<User>(entity => {
                 entity.HasKey(e => e.IdAccount);
+
+                //entity.HasMany<Review>(e => e.Reviews)
+                //       .WithOne(review => review.User)
+                //       .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<OrderDetail>(entity => {
@@ -81,7 +87,28 @@ namespace ltddnc_backend
                         .WithMany(category => category.Products)
                         .HasForeignKey(e => e.IdCategory);
 
+                entity.HasMany<Review>(e => e.Reviews)
+                        .WithOne(review => review.Product)
+                        .OnDelete(DeleteBehavior.Cascade);
+
             });
+
+            modelBuilder.Entity<Review>(entity => {
+                entity.HasKey(e => new { e.Id });
+
+                entity.HasOne<Product>(e => e.Product)
+                    .WithMany(f => f.Reviews)
+                    .HasForeignKey(e => e.IdProduct);
+
+                entity.HasOne<User>(e => e.User)
+                    .WithMany(f => f.Reviews)
+                    .HasForeignKey(e => e.IdUser);
+
+                entity.HasOne<Order>(e => e.Order)
+                    .WithMany(f => f.Reviews)
+                    .HasForeignKey(e => e.IdOrder);
+            });
+
 
             modelBuilder.Entity<Role>(entity => {
                 entity.HasKey(e => e.Id);
@@ -96,6 +123,14 @@ namespace ltddnc_backend
                 entity.HasOne<User>(e => e.User)
                     .WithMany(f => f.Favorites)
                     .HasForeignKey(e => e.IdUser);
+            });
+
+            modelBuilder.Entity<Order>(entity => {
+                entity.HasKey(e => new {e.Id });
+
+                entity.HasMany<Review>(e => e.Reviews)
+                       .WithOne(review => review.Order)
+                       .OnDelete(DeleteBehavior.Cascade);
             });
 
             SeedData(modelBuilder);
@@ -151,6 +186,14 @@ namespace ltddnc_backend
             //   new Cart() { IdUser = 3, IdProduct = 11, Quantity = 2 },
             //   new Cart() { IdUser = 3, IdProduct = 2, Quantity = 2 },
             //   new Cart() { IdUser = 3, IdProduct = 5, Quantity = 2 });
+
+            //modelBuilder.Entity<Review>().HasData(
+            //   new Review() { Id = 1, IdProduct = 1, IdUser = 3, Name = "Bao", Rating = 5, Date = createdDateNew, Comment = "Good",  Image  = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94",IdOrder = 1 },
+            //   new Review() { Id = 2, IdProduct = 1, IdUser = 3, Name = "Bao", Rating = 1, Date = createdDateNew, Comment = "Bad",  Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94", IdOrder = 1 },
+            //   new Review() { Id = 3, IdProduct = 2, IdUser = 3, Name = "Bao", Rating = 5, Date = createdDateNew, Comment = "Very Good", Image = "https://firebasestorage.googleapis.com/v0/b/ltddnc-flutter.appspot.com/o/icecream.png?alt=media&token=39a3faad-b029-4e50-aed2-680e203a8b94", IdOrder =1 });
+               
+            modelBuilder.Entity<Cart>().HasData(
+               new Cart() { IdUser = 3, IdProduct = 1, Quantity = 20 });
 
             //modelBuilder.Entity<Favorite>().HasData(
             //   new Favorite() { IdUser = 3, IdProduct = 1 },

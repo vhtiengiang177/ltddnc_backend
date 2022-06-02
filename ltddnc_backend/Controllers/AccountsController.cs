@@ -129,5 +129,20 @@ namespace ltddnc_backend.Controllers
             }
             return Ok("Cập nhật thông tin thành công.");
         }
+
+        [HttpPatch("updatepassword/{idAccount}&&{password}")]
+        public IActionResult UpdatePassword(int idAccount,string password)
+        {
+           
+                var account = _accountsRepository.GetAccountByID(idAccount);
+                account.Password = _accountsService.MD5Hash(password);
+                _accountsRepository.UpdateAccount(account);
+                if (!_accountsRepository.Save())
+                {
+                    return BadRequest("Cập nhật thất bại.");
+                }
+            
+            return Ok("Cập nhật thông tin thành công.");
+        }
     }
 }
