@@ -50,7 +50,6 @@ D:\Flutter\lttd\ltddnc_backend\ltddnc_backend\bin\Debug\netcoreapp3.1\runtimes\w
 D:\Flutter\lttd\ltddnc_backend\ltddnc_backend\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Flutter\lttd\ltddnc_backend\ltddnc_backend\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Flutter\lttd\ltddnc_backend\ltddnc_backend\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Flutter\lttd\ltddnc_backend\ltddnc_backend\obj\Debug\netcoreapp3.1\ltddnc_backend.csproj.AssemblyReference.cache
 D:\Flutter\lttd\ltddnc_backend\ltddnc_backend\obj\Debug\netcoreapp3.1\ltddnc_backend.GeneratedMSBuildEditorConfig.editorconfig
 D:\Flutter\lttd\ltddnc_backend\ltddnc_backend\obj\Debug\netcoreapp3.1\ltddnc_backend.AssemblyInfoInputs.cache
 D:\Flutter\lttd\ltddnc_backend\ltddnc_backend\obj\Debug\netcoreapp3.1\ltddnc_backend.AssemblyInfo.cs
@@ -142,3 +141,4 @@ D:\SPKT\TAI_LIEU_NAM_4\LTDDNC\CuoiKy\BE_Flutter\ltddnc_backend\obj\Debug\netcore
 D:\SPKT\TAI_LIEU_NAM_4\LTDDNC\CuoiKy\BE_Flutter\ltddnc_backend\obj\Debug\netcoreapp3.1\ltddnc_backend.dll
 D:\SPKT\TAI_LIEU_NAM_4\LTDDNC\CuoiKy\BE_Flutter\ltddnc_backend\obj\Debug\netcoreapp3.1\ltddnc_backend.pdb
 D:\SPKT\TAI_LIEU_NAM_4\LTDDNC\CuoiKy\BE_Flutter\ltddnc_backend\obj\Debug\netcoreapp3.1\ltddnc_backend.genruntimeconfig.cache
+D:\Flutter\lttd\ltddnc_backend\ltddnc_backend\obj\Debug\netcoreapp3.1\ltddnc_backend.csproj.AssemblyReference.cache

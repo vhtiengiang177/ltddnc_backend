@@ -33,6 +33,13 @@ namespace ltddnc_backend.Controllers
             IQueryable<Review> lReviews;
             lReviews = await _reviewsRepository.GetReviewsByIdProduct(id);
 
+            foreach (var review in lReviews)
+            {
+                User user = _accountRepository.GetUserByID(review.IdUser);
+                review.Name = user.Name;
+                review.Image = user.Image;
+            }
+
             if (lReviews == null)
             {
                 return NotFound();
@@ -84,25 +91,17 @@ namespace ltddnc_backend.Controllers
                     }
                 }
 
-
                 //update review state
                 Order order = _ordersRepository.GetOrderById(lRevieParams[0].IdOrder);
-                order.State = 1;
+                order.ReviewState = 1;
                 _ordersRepository.UpdateOrder(order);
                 _ordersRepository.Save();
-
-               
-                
-                    return Ok();
-                
+                return Ok();
             }
             catch
             {
                 return BadRequest();
             }
         }
-
-
-
     }
 }
