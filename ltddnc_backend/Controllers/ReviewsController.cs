@@ -36,8 +36,11 @@ namespace ltddnc_backend.Controllers
             foreach (var review in lReviews)
             {
                 User user = _accountRepository.GetUserByID(review.IdUser);
+                Product product = _productsRepository.GetProductByID(review.IdProduct);
                 review.Name = user.Name;
                 review.Image = user.Image;
+                review.NameProduct = product.Name;
+                review.ImageProduct = product.Image;
             }
 
             if (lReviews == null)
@@ -64,19 +67,18 @@ namespace ltddnc_backend.Controllers
                     {
                         IdUser = reviewUI.IdUser,
                         IdProduct = reviewUI.IdProduct,
-                        Name = user.Name,
-                        Image = user.Image,
+                        //Name = user.Name,
+                        //Image = user.Image,
                         Comment = reviewUI.Comment,
                         Date = reviewUI.Date,
                         Rating = reviewUI.Rating,
                         IdOrder = reviewUI.IdOrder,
-                        NameProduct = reviewUI.Name,
-                        ImageProduct = reviewUI.Image
+                        //NameProduct = reviewUI.Name,
+                        //ImageProduct = reviewUI.Image
                     };
 
                     var result = _reviewsRepository.CreateReview(reviewObj);
                     _reviewsRepository.Save();
-
 
                     Product product = _productsRepository.GetProductByID(reviewObj.IdProduct);
                     //update avg rating
